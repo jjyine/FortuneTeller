@@ -43,6 +43,13 @@ namespace FortuneTeller
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private string GetFortune()
+        {
+            Random random = new Random();
+            int index = random.Next(0, results.Count);
+            return results[index];
+        }
         
 
         private void label2_Click(object sender, EventArgs e)
