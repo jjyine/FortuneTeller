@@ -80,5 +80,39 @@ namespace FortuneTeller
             FormAbout form = new FormAbout(); 
             form.ShowDialog();  
         }
+
+        private void btnResult_Click(object sender, EventArgs e)
+        {
+            string birthday = tbBirthday.Text;
+            string birthour = tbbirthour.Text; 
+            string result = GetFortune();
+            string saju = result.Split('|')[0];
+            string message = result.Split('|')[1];
+
+            tbResult.Text = $"{birthday} {birthour}{Environment.NewLine}" 
+                + $"{saju}{Environment.NewLine}" 
+                + $"{message}";
+            //tbResult.Text = birthday + " " + birthour + " " + result;
+            SaveHistory($"{birthday} {birthour}|{result}");
+        }
+
+        private void SaveHistory(string history)
+        {
+            try
+            {
+                string filename = "history.csv";
+                File.AppendAllText(filename, history + Environment.NewLine);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show($"권한 없음 오류 발생!\n{ex.Message}", "권한 오류");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"알 수 없는 오류 발생!\n{ex.Message}", "알 수 없는 오류");
+            }
+            
+
+        }
     }
 }
