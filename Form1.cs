@@ -65,7 +65,7 @@ namespace FortuneTeller
             }
             else
             {
-                form = new Formhistory();
+                form = new Formhistory(this);
                 form.Show();
             }    
         }
@@ -113,6 +113,21 @@ namespace FortuneTeller
             }
             
 
+        }
+
+        public void LoadHistory(string history)
+        {
+            string birthday = history.Split('|')[0].Split(' ')[0];
+            string birthour = history.Split('|')[0].Split(' ')[0];
+            tbBirthday.Text = birthday;
+            tbbirthour.Text = birthour;
+            
+            string saju = history.Split('|')[0];
+            string message = history.Split('|')[1];
+
+            tbResult.Text = $"{birthday} {birthour}{Environment.NewLine}"
+                + $"{saju}{Environment.NewLine}"
+                + $"{message}";
         }
     }
 }

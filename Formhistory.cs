@@ -14,13 +14,21 @@ namespace FortuneTeller
     public partial class Formhistory : Form
     {
         List<string> history;
-        Form form1;
+        Form1 form1;
 
         public Formhistory(Form1 form)
         {
             this.form1 = form;
             InitializeComponent();
             LoadHistory();
+        }
+
+        public void UpdateHistory()
+        {
+            LoadHistory();
+            lbHistory.Items.Clear();
+            lbHistory.Items.AddRange(history.ToArray());
+
         }
 
         private void LoadHistory()
@@ -43,6 +51,17 @@ namespace FortuneTeller
                 MessageBox.Show($"알 수 없는 오류가 발생했어요.\n{ex.Message}", "알 수 없는 오류",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            UpdateHistory();
+        }
+
+        private void lbHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string message = history[lbHistory.SelectedIndex];
+            form1.LoadHistory(message);
         }
     }
 }
